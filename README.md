@@ -6,7 +6,7 @@ Either simply download and install this package by running the setup script, or:
 
 1. Download and install the [Anaconda python distribution](https://www.continuum.io/downloads "Continuum Analytics Anaconda download")
 2. Create a new environment with the [MDTraj package](https://github.com/mdtraj/mdtraj "MDTraj") package installed:  
-`conda create --name MDorder mdtraj`
+`conda create --name MDorder mdtraj matplotlib ipython`
 3. Activate environment:  
 `source activate MDorder`
 4. Download and install MDorder:  
