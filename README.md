@@ -3,7 +3,7 @@ Compute Amide bond S2 order parameters from MD trajectories.
 
 A publication describing the methods used in this program in detail is under way.
 
-## How to Install
+# How to Install
 Either simply download and install this package by running the setup script, or:
 MDorder is compatible with python 2 and 3.
 
@@ -21,12 +21,12 @@ MDorder is compatible with python 2 and 3.
 `python setup.py install`
 
 
-## Usage
+# Usage
 
 As the computation of the bond vector correlation functions and the computation of order parameters from the correlation functions can both take some time,
 their computations have been split into separate steps in the workflow.
 
-# From a python script
+## From a python script
 After installation, there will be several files for testing in your `$PATH`.
 The `which` command will help you to locate them.
 They are well documented and demonstrate how to use MDorder from the command line.
