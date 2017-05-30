@@ -155,12 +155,9 @@ def _bond_vec(trj, bondvec_ndx):
     # extract bond vector subtrajectories
     atom1_xyz = trj.xyz[:,bondvec_ndx[:,0],:]
     atom2_xyz = trj.xyz[:,bondvec_ndx[:,1],:]
-    #atom1_trj = trj.atom_slice(bondvec_ndx[:,0])
-    #atom2_trj = trj.atom_slice(bondvec_ndx[:,1])
 
     # compute bond vectors
     bondvec = atom1_xyz - atom2_xyz
-    #bondvec = atom1_trj.xyz - atom2_trj.xyz
 
     # normalize bond vectors
     bondlength = (((bondvec**2).sum(2))**0.5)
@@ -187,7 +184,6 @@ def _bond_vec(trj, bondvec_ndx):
     info['chain'     ] = [[], []]
 
     # get info on atoms and residues
-    #for atom1, atom2 in zip(atom1_trj.top.atoms, atom2_trj.top.atoms):
     for atom1_ndx, atom2_ndx in bondvec_ndx:
         atom1 = trj.topology.atom(atom1_ndx)
         atom2 = trj.topology.atom(atom2_ndx)
@@ -317,7 +313,6 @@ def save_corr(savefilename, corr, corrstd, corrstdmean, bondvecinfo, topfilename
  
     # save arrays
     with open(tmpdirname + '/' + npzfilename, 'wb') as outfile:
-        #np.savez(outfile, corr, corrstd, corrstdmean)
         np.savez_compressed(outfile, corr=corr, corrstd=corrstd, corrstdmean=corrstdmean)
 
     # save info
@@ -632,117 +627,3 @@ def bondvec_corr_batch(topfilename, trjfilenames, savepath, subtrjlength=None, b
         print("Total runtime:                        {:8.0f} sec.".format(tc['runtimer' ]))
         
 
-# ============================================================================ #
-
-
-#def _check_corr_convergence(corr, diffThreshold=0.02, stdThreshold=0.02):
-#    """
-#    Check the convergence of the bond vector correlation functions
-#
-#    Parameters
-#    ----------
-#    corr : (nbonds, nframes) array
-#        Correlation functions
-#
-#    diffThreshold: float, optional
-#        Maximum mean difference for convergence check.
-#
-#    stdThreshold: float, optional
-#        Maximum stdev difference for convergence check.
-#
-#    Returns
-#    -------
-#    
-#
-#        (convergence values, boolean array of converged correlation functions)
-#    """
-#    length            = corr.shape[1]
-#    quarter           = length/4
-#    thirdQuarter      = corr[:,2*quarter:3*quarter]
-#    fourthQuarter     = corr[:,3*quarter:4*quarter]
-#    fourthQuarterMean = fourthQuarter.mean(1)
-#    difference        = abs(thirdQuarter.mean(1) - fourthQuarterMean)
-#    stdev             = (thirdQuarter.std(1) + fourthQuarter.std(1)) / 2
-#    convergence       = np.logical_and(difference < diffThreshold, stdev < stdThreshold)
-#    return fourthQuarterMean, convergence
-# 
-#
-#
-## ============================================================================ #
-#
-#
-#def order_parameter_mean(corr, converged=True, diffThreshold=0.02, stdThreshold=0.02):
-#
-#    length            = corr.shape[1]
-#    quarter           = length/4
-#    thirdQuarter      = corr[:,2*quarter:3*quarter]
-#    fourthQuarter     = corr[:,3*quarter:4*quarter]
-#    fourthQuarterMean = fourthQuarter.mean(1)
-#
-#    difference        = abs(thirdQuarter.mean(1) - fourthQuarterMean)
-#    stdev             = (thirdQuarter.std(1) + fourthQuarter.std(1)) / 2
-#    convergence       = np.logical_and(difference < diffThreshold, stdev < stdThreshold)
-#
-#    return fourthQuarterMean, convergence 
-#
-#
-## ============================================================================ #
-#
-#
-#def order_parameter(corrfilenames, method="mean", converged=True, verbose=True, **kwargs):
-#    """
-#    Compute bond vector order parameters from correlation functions.
-#
-#    Parameters
-#    ----------
-#    corrfilenames : list
-#        List with *.zip filenames containing correlation functions.
-#        
-#    method: string, optional
-#        The method to use for order parameter computation.
-#        Options are:
-#            "mean"          Use the mean of the final quarter as order parameter
-#            "single exp"    Fit correlation functions to single exponential
-#            "double exp"    Fit correlation functions to double exponential
-#            "extLS"         Use the extended least squares method (method 3) from:
-#                            JPCB 2008, 112, 6155-6158, pubs.acs.org/doi/abs/10.1021/jp077018h
-#            "iRED"          Use the iRED method from:
-#                            Brüschweiler, JACS 2002, 124, 4522-4534, pubs.acs.org/doi/abs/10.1021/ja012750u
-#
-#    converged : boolean, optional, default: True
-#        Use only converged correlation functions for averaging
-#
-#    verbose : boolean, optional
-#        Report progress and other verbose output.
-#
-#    **kwargs : optional keyword arguments
-#        All remaining keyword arguments are passed to the order parameter method.
-#    """
-#
-#    starttime = time.time()
-#
-#    # load correlation functions
-#    corrlist = []
-#    print("Loading {} set{} of correlation functions:".format(len(corrfilenames), *['s' if i>1 else '' for i in [len(corrlist)]]))
-#    for nf, filename in enumerate(corrfilenames):
-#        corr, corrstd, corrstdmean, info = load_corr(filename)
-#        corrlist.append(CorrFunction(corr, corrstd, corrstdmean, info))
-#        if verbose:
-#            print("\rProgress: {:3.0f}%".format(100.0*nf/len(corrfilenames)), end="")
-#            sys.stdout.flush()
-#
-#    # select order parameter estimation method
-#    if method == "mean":
-#        S2 = order_parameter_mean(corrlist, **kwargs)
-#    else:
-#        print("Order parameter estimation method unknown: {}".format(method))
-#        sys.exit(1)
-#
-#    # report runtime
-#    print("\rRuntime: {:.2f} sec.".format(time.time() - starttime))
-#
-#    return S2
- 
-
-# ============================================================================ #
- 

@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
  
 # the correlation functions are stored in a subfolder of the current working directory
 # after running test_corr.py
-corrpath = "./MDorder_test_corr"
+corrpath = "./MDorder_test_corr_nofit"
 
 if not os.path.isdir(corrpath):
     print("No correlation functions found.")

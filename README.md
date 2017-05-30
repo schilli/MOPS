@@ -32,6 +32,7 @@ The `which` command will help you to locate them.
 They are well documented and demonstrate how to use MDorder from the command line.
 In addition, each function and class comes with a docstring describing its use and the meaning of arguments and return values.
 
+* `test_corr_fit.py`: Computes the internal correlation functions with prior removal of the global rotation of the protein by superposition of backbone atoms.
 * `test_corr_nofit.py`: Computes the correlation functions without removal of the global rotation of the protein.
 * `test_AIC.py`: Computes order parameters with the general Lipari-Szabo model and selects the best model (i.e., number of exponentials fitted) based on the Aikaike Information Criterion (AIC).
 

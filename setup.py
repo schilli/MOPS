@@ -10,6 +10,6 @@ setup(name='MDorder',
       url='https://github.com/schilli/MDorder',
       packages=['MDorder'],
       package_data={'MDorder': ['test/*']},
-      scripts=['MDorder/test/test_corr.py', 'MDorder/test/test_AIC.py']
+      scripts=['MDorder/test/test_corr_fit.py', 'MDorder/test/test_corr_nofit.py', 'MDorder/test/test_AIC.py']
      )
 
