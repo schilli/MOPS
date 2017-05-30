@@ -9,6 +9,7 @@ setup(name='MDorder',
       author_email='oliver@schillinger-ttp.de',
       url='https://github.com/schilli/MDorder',
       packages=['MDorder'],
-      package_data={'MDorder': ['test/*']}
+      package_data={'MDorder': ['test/*']},
+      scripts=['MDorder/test/test_corr.py', 'MDorder/test/test_AIC.py']
      )
 

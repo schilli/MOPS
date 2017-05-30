@@ -2,7 +2,7 @@
 General Lipari Szabo model fits
 """
 
-from __future__ import print_function
+from __future__ import print_function, division
 
 import sys
 import numpy as np
@@ -133,8 +133,8 @@ class LS(object):
         p : (2*n, ) array
         """
         n   = len(p)+1
-        S   = p[:n/2]
-        tau = p[n/2:] 
+        S   = p[:n//2]
+        tau = p[n//2:] 
 
         if self.internal:
             C_I = self.generalLS_internal(S, tau)

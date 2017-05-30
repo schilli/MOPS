@@ -5,9 +5,21 @@ from __future__ import print_function, division
 import sys, os, time, copy
 import numpy as np
 import matplotlib.pyplot as plt
-import LS
+import MDorder as mdo
 
-from corrFunction import corrFunction
+try:
+    # python 3 ? 
+    import MDorder.LS as LS
+except ImportError:
+    # python 2 ? 
+    import LS as LS
+
+try:
+    # python 3 ? 
+    from MDorder.CorrFunction import CorrFunction
+except ImportError:
+    # python 2 ? 
+    from CorrFunction import CorrFunction
 
 # ============================================================================ #
 
@@ -88,8 +100,8 @@ class OrderParameter(object):
         self.corrlist = []
         print("Loading {} set{} of correlation functions:".format(len(self.corrfilenames), *['s' if i>1 else '' for i in [len(self.corrfilenames)]]))
         for nf, filename in enumerate(self.corrfilenames):
-            corr, corrstd, corrstdmean, info = load_corr(filename)
-            self.corrlist.append(corrFunction(corr, corrstd, corrstdmean, info))
+            corr, corrstd, corrstdmean, info = mdo.load_corr(filename)
+            self.corrlist.append(CorrFunction(corr, corrstd, corrstdmean, info))
             if self.verbose:
                 print("\rProgress: {:3.0f}%".format(100.0*nf/len(self.corrfilenames)), end="")
                 sys.stdout.flush()
@@ -121,7 +133,7 @@ class OrderParameter(object):
         #for c, corr in enumerate(self.corrlist):
         #    allcorr[c,:,:] = corr.corr
 
-        self.avgcorr = corrFunction(corr=allcorr.mean(0), std=allcorr.std(0), error=allcorr.std(0)/allcorr.shape[0]**0.5)
+        self.avgcorr = CorrFunction(corr=allcorr.mean(0), std=allcorr.std(0), error=allcorr.std(0)/allcorr.shape[0]**0.5)
         self.avgcorr.resid       = copy.copy(self.corrlist[0].resid      )
         self.avgcorr.resindex    = copy.copy(self.corrlist[0].resindex   )
         self.avgcorr.resname     = copy.copy(self.corrlist[0].resname    )

@@ -11,11 +11,21 @@ from __future__ import print_function, division
 import sys, os, time, string
 import mdtraj as md
 import numpy as np
-import cPickle as pickle
 import zipfile, bz2
+try:
+    # python 2 ? 
+    import cPickle as pickle
+except ImportError:
+    # python 3 ? 
+    import pickle
 
-from corrFunction import corrFunction
-
+try:
+    # python 3 ? 
+    from MDorder.CorrFunction import CorrFunction
+except ImportError:
+    # python 2 ? 
+    from CorrFunction import CorrFunction
+ 
 try:
     from mpi4py import MPI
     gotMPI = True
@@ -289,7 +299,7 @@ def save_corr(savefilename, corr, corrstd, corrstdmean, bondvecinfo, topfilename
     """
 
     tmpdirnamelen     = 8
-    tmpdirname        = "tmpdir_" + ''.join(np.random.choice([i for i in string.letters + string.digits], size=tmpdirnamelen))
+    tmpdirname        = "tmpdir_" + ''.join(np.random.choice([i for i in string.ascii_letters + string.digits], size=tmpdirnamelen))
     os.mkdir(tmpdirname)
     savefilepath      = os.path.dirname(savefilename)
     npzfilename       = "corr.npz"
@@ -306,12 +316,12 @@ def save_corr(savefilename, corr, corrstd, corrstdmean, bondvecinfo, topfilename
     info['frames']      = frames
  
     # save arrays
-    with open(tmpdirname + '/' + npzfilename, 'w') as outfile:
+    with open(tmpdirname + '/' + npzfilename, 'wb') as outfile:
         #np.savez(outfile, corr, corrstd, corrstdmean)
         np.savez_compressed(outfile, corr=corr, corrstd=corrstd, corrstdmean=corrstdmean)
 
     # save info
-    with open(tmpdirname + '/' + infofilename, 'w') as outfile:
+    with open(tmpdirname + '/' + infofilename, 'wb') as outfile:
         outfile.write(bz2.compress(pickle.dumps(info)))
 
     # pack both into zipfile
@@ -356,7 +366,7 @@ def load_corr(filename):
     cwd           = os.getcwd()
     absfilename   = os.path.abspath(filename)
     tmpdirnamelen = 8
-    tmpdirname    = "/tmp/" + ''.join(np.random.choice([i for i in string.letters + string.digits], size=tmpdirnamelen))
+    tmpdirname    = "/tmp/" + ''.join(np.random.choice([i for i in string.ascii_letters + string.digits], size=tmpdirnamelen))
     os.mkdir(tmpdirname)
     os.chdir(tmpdirname)
 
@@ -367,7 +377,7 @@ def load_corr(filename):
             infile.extract(zipfilename)
 
     for zipfilename in zipfilenames:
-        with open(zipfilename, 'r') as infile:
+        with open(zipfilename, 'rb') as infile:
             # load info dictionary
             if zipfilename.find('.dat') >= 0:
                 info = pickle.loads(bz2.decompress(infile.read()))
@@ -540,10 +550,7 @@ def bondvec_corr_batch(topfilename, trjfilenames, savepath, subtrjlength=None, b
             task['trjfilenames'] = [trjfilenames[i] for i in task['trjindices']]
             task['savepath']     = savepath
 
-            #print("Sending task to rank ", rank)
             comm.send(task, dest=rank, tag=rank)
-
-        #print("Done with sending, receiving")
 
     if myrank != root:
         task = comm.recv(source=root, tag=myrank)
@@ -556,30 +563,23 @@ def bondvec_corr_batch(topfilename, trjfilenames, savepath, subtrjlength=None, b
         task['trjfilenames'] = [trjfilenames[i] for i in task['trjindices']]
         task['savepath']     = savepath 
 
-#    print ("rank {}: ".format(myrank), task['trjindices'], task['trjfilenames'])
-#    sys.stdout.flush()
-#    sys.exit(0)
 
     # do the assigned piece of work
     for nf, trjfilename in enumerate(task['trjfilenames']):
-#        if nf > 3:
-#            break
         # determinde dt and chunksize
         trjs      = md.iterload(trjfilename, top=task['topfilename'], chunk=2)
-        trj       = trjs.next()
+        trj       = next(trjs)
         dt        = trj.timestep
         chunksize = int(subtrjlength / dt)
         trjindex  = task['trjindices'][nf]
 
         if myrank == root:
             print("\r", 100*" ", end="")
-            print("\rProgress rank root: {:3.0f}% ".format(100.0*nf/len(task['trjfilenames']), nf), end="")
+            print("\rProgress overall: {:3.0f}%; Current trajectory: ".format(100.0*nf/len(task['trjfilenames']), nf), end="")
             sys.stdout.flush()
  
         loadstarttime = time.time()
         for ntrj, trj in enumerate(md.iterload(trjfilename, top=task['topfilename'], chunk=chunksize)):
-#            if ntrj > 3:
-#                break
 
             tc['loadtimer'] += time.time() - loadstarttime
 
@@ -623,16 +623,13 @@ def bondvec_corr_batch(topfilename, trjfilenames, savepath, subtrjlength=None, b
     else:
         comm.send(tc, dest=root, tag=myrank)
 
-    comm.barrier()
+    if gotMPI:
+        comm.barrier()
 
     tc['runtimer'] = time.time() - tc['runtimer']
     if myrank == root:
-        print("Summary")
-        print("-------\n")
         print("Loaded {} subtrajectories with a total of {} frames".format(tc['nsubtrjs'], tc['nframes']))
         print("Total runtime:                        {:8.0f} sec.".format(tc['runtimer' ]))
-        print("Aggregated time for loading:          {:8.0f} sec.".format(tc['loadtimer']))
-        print("Aggregated time for corr computation: {:8.0f} sec.".format(tc['corrtimer']))
         
 
 # ============================================================================ #
@@ -729,7 +726,7 @@ def bondvec_corr_batch(topfilename, trjfilenames, savepath, subtrjlength=None, b
 #    print("Loading {} set{} of correlation functions:".format(len(corrfilenames), *['s' if i>1 else '' for i in [len(corrlist)]]))
 #    for nf, filename in enumerate(corrfilenames):
 #        corr, corrstd, corrstdmean, info = load_corr(filename)
-#        corrlist.append(corrFunction(corr, corrstd, corrstdmean, info))
+#        corrlist.append(CorrFunction(corr, corrstd, corrstdmean, info))
 #        if verbose:
 #            print("\rProgress: {:3.0f}%".format(100.0*nf/len(corrfilenames)), end="")
 #            sys.stdout.flush()
