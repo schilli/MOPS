@@ -267,7 +267,7 @@ class OrderParameter(object):
         """
 
         length            = corrfun.corr.shape[1]
-        quarter           = length / 4
+        quarter           = length // 4
         thirdQuarter      = corrfun.corr[:,2*quarter:3*quarter]
         fourthQuarter     = corrfun.corr[:,3*quarter:4*quarter]
         fourthQuarterMean = fourthQuarter.mean(1)

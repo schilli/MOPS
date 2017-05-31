@@ -26,6 +26,8 @@ MDorder is compatible with python 2 and 3.
 As the computation of the bond vector correlation functions and the computation of order parameters from the correlation functions can both take some time,
 their computations have been split into separate steps in the workflow.
 
+You should provide trajectory data that contains only atoms of a single protein, without solvent.
+
 ## From a python script
 After installation, there will be several files for testing in your `$PATH`.
 The `which` command will help you to locate them.
@@ -35,6 +37,8 @@ In addition, each function and class comes with a docstring describing its use a
 * `test_corr_fit.py`: Computes the internal correlation functions with prior removal of the global rotation of the protein by superposition of backbone atoms.
 * `test_corr_nofit.py`: Computes the correlation functions without removal of the global rotation of the protein.
 * `test_AIC.py`: Computes order parameters with the general Lipari-Szabo model and selects the best model (i.e., number of exponentials fitted) based on the Aikaike Information Criterion (AIC).
+* `test_direct.py` : Computes order parameters with the direct method described in Trbovic et al. Proteins (2008). doi:10.1002/prot.21750
+* `test_mean.py` : Computes order parameters as the mean of the internal bond vector correlation function convergence value
 
 
 
