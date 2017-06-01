@@ -4,8 +4,8 @@ Compute Amide bond S2 order parameters from MD trajectories.
 A publication describing the methods used in this program in detail is under way.
 
 # How to Install
+MDorder is compatible with python 2 and 3 and runs on linux, maybe on MacOS as well (untested).  
 Either simply download and install this package by running the setup script, or:
-MDorder is compatible with python 2 and 3 and runs on linux, maybe on MacOS as well (untested).
 
 1. Download and install the [Anaconda python distribution](https://www.continuum.io/downloads "Continuum Analytics Anaconda download")
 2. Create a new environment with the [MDTraj package](https://github.com/mdtraj/mdtraj "MDTraj") package installed:  
