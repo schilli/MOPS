@@ -30,14 +30,19 @@ You should provide trajectory data that contains only atoms of a single protein,
 
 ## Standalone Executable
 
-The module automatically installs an executable `MDorder` in the users path that will print detailed usage instructions when called with the `-h` flag.
+The module automatically installs an executable `MDorder` in the users `$PATH` that will print detailed usage instructions when called with the `-h` flag.
 
 ## From a python script
-After installation, there will be several files for testing in your `$PATH`.
+After installation, there will be several files for testing and documentation of the API in your `$PATH`.
+These can also be found in the `MDorder/test` subdirectory.
 The `which` command will help you to locate them.
-They are well documented and demonstrate how to use MDorder from the command line.
-In addition, each function and class comes with a docstring describing its use and the meaning of arguments and return values.
+They are well documented and demonstrate how to use the API of MDorder from the command line and in your own Python scripts.
+In addition, each function and class comes with a docstring describing its usage and the meaning of arguments and return values.
+It is a good idea to import the MDorder module in an interactive Ipython session and to read the docstrings with the `?` operator, e.g.:  
+`In[1]: import MDorder as mdo`
+`In[2]: mdo.OrderParameter?`
 
+The testing / API documentation scritps available are:
 * `test_corr_fit.py`: Computes the internal correlation functions with prior removal of the global rotation of the protein by superposition of backbone atoms.
 * `test_corr_nofit.py`: Computes the correlation functions without removal of the global rotation of the protein.
 * `test_AIC.py`: Computes order parameters with the general Lipari-Szabo model and selects the best model (i.e., number of exponentials fitted) based on the Aikaike Information Criterion (AIC).
