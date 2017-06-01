@@ -39,8 +39,10 @@ The `which` command will help you to locate them.
 They are well documented and demonstrate how to use the API of MDorder from the command line and in your own Python scripts.
 In addition, each function and class comes with a docstring describing its usage and the meaning of arguments and return values.
 It is a good idea to import the MDorder module in an interactive Ipython session and to read the docstrings with the `?` operator, e.g.:  
-`In[1]: import MDorder as mdo`
-`In[2]: mdo.OrderParameter?`
+```python
+In[1]: import MDorder as mdo
+In[2]: mdo.OrderParameter?
+```
 
 The testing / API documentation scritps available are:
 * `test_corr_fit.py`: Computes the internal correlation functions with prior removal of the global rotation of the protein by superposition of backbone atoms.
