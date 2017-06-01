@@ -1,0 +1,23 @@
+#!/usr/bin/env python
+# Standalone executable to compute S2 order parameters from MD trajectories
+# To obtain detailed usage instructions, call the program with the -h flag.
+
+from __future__ import print_function, division
+
+import sys, os
+import argparse
+import MDorder as mdo
+import matplotlib.pyplot as plt 
+
+
+def main():
+    parser = argparse.ArgumentParser(description='Compute Amide bond S2 order parameters from MD trajectories.')
+    parser.add_argument('integers', metavar='N', type=int, nargs='+',
+                        help='an integer for the accumulator')
+    args = parser.parse_args()
+    print(args.accumulate(args.integers))
+
+
+if __name__ == "__main__":
+    main()
+ 

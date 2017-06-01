@@ -5,7 +5,7 @@ A publication describing the methods used in this program in detail is under way
 
 # How to Install
 Either simply download and install this package by running the setup script, or:
-MDorder is compatible with python 2 and 3.
+MDorder is compatible with python 2 and 3 and runs on linux, maybe on MacOS as well (untested).
 
 1. Download and install the [Anaconda python distribution](https://www.continuum.io/downloads "Continuum Analytics Anaconda download")
 2. Create a new environment with the [MDTraj package](https://github.com/mdtraj/mdtraj "MDTraj") package installed:  
@@ -28,6 +28,10 @@ their computations have been split into separate steps in the workflow.
 
 You should provide trajectory data that contains only atoms of a single protein, without solvent.
 
+## Standalone Executable
+
+The module automatically installs an executable `MDorder` in the users path that will print detailed usage instructions when called with the `-h` flag.
+
 ## From a python script
 After installation, there will be several files for testing in your `$PATH`.
 The `which` command will help you to locate them.
@@ -39,6 +43,8 @@ In addition, each function and class comes with a docstring describing its use a
 * `test_AIC.py`: Computes order parameters with the general Lipari-Szabo model and selects the best model (i.e., number of exponentials fitted) based on the Aikaike Information Criterion (AIC).
 * `test_direct.py` : Computes order parameters with the direct method described in Trbovic et al. Proteins (2008). doi:10.1002/prot.21750
 * `test_mean.py` : Computes order parameters as the mean of the internal bond vector correlation function convergence value
+
+
 
 
 

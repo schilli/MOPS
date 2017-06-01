@@ -14,6 +14,7 @@ setup(name='MDorder',
           'MDorder/test/test_corr_nofit.py',
           'MDorder/test/test_AIC.py',
           'MDorder/test/test_mean.py',
-          'MDorder/test/test_direct.py']
+          'MDorder/test/test_direct.py',
+          'MDorder/bin/MDorder']
      )
 
