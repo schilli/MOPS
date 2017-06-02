@@ -1,11 +1,13 @@
 # MDorder
-Compute Amide bond S2 order parameters from MD trajectories.
+Compute amide bond S2 order parameters from MD trajectories.
 
 A publication describing the methods used in this program in detail is under way.
 
 # How to Install
 MDorder is compatible with python 2 and 3 and runs on linux, maybe on MacOS as well (untested).  
-Either simply download and install this package by running the setup script, or:
+
+## Install with Anaconda (recommended)
+This method is recommended, as it leaves the system environment and Python untouched.
 
 1. Download and install the [Anaconda python distribution](https://www.continuum.io/downloads "Continuum Analytics Anaconda download")
 2. Create a new environment with the [MDTraj package](https://github.com/mdtraj/mdtraj "MDTraj") package installed:  
@@ -20,13 +22,30 @@ Either simply download and install this package by running the setup script, or:
 `git pull`  
 `python setup.py install`
 
+## Install with system python
+1. Install git and Ipython with your systems package manager
+2. Install mdtraj and matplotlib with pip:  
+`pip install mdtraj matplotlib`
+2. Download and install MDorder:  
+`git clone https://github.com/schilli/MDorder.git`  
+`cd MDorder`  
+`python setup.py intall` 
+3. To update to a newer version go to the MDorder directory cloned with git and:  
+`git pull`  
+`python setup.py install`
+ 
 
 # Usage
 
+## Workflow
 As the computation of the bond vector correlation functions and the computation of order parameters from the correlation functions can both take some time,
 their computations have been split into separate steps in the workflow.
+That means:
+1. Compute correlation functions.
+2. Estimate S2 order parameters from the correlation functions with one of the available methods.
 
-You should provide trajectory data that contains only atoms of a single protein, without solvent.
+You should provide trajectory data that contains only protein atoms, without solvent.
+It might work with solvent, but the trajectory will much load slower.
 
 ## Standalone Executable
 

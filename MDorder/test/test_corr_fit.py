@@ -18,7 +18,7 @@ if not os.path.isdir(savepath):
 # topology and trajectory filenames.
 # A list of multiple trajectory filenames can be specified as well
 topfilename  =  testpath + "trp-cage.pdb"
-trjfilenames = [testpath + "trp-cage.xtc"]
+trjfilenames = [testpath + "trp-cage_1.xtc", testpath + "trp-cage_2.xtc"]
 
 # these are the default selection strings for N and H atoms
 Nsel = "name N and not resname PRO and resid >= 1"

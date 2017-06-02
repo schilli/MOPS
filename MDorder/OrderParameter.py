@@ -183,6 +183,8 @@ class OrderParameter(object):
             self.estimate_direct(**kwargs)
         elif self.method == "mean":
             self.estimate_mean(converged=self.converged, **kwargs)
+        elif self.method == "LS":
+            self.estimate_generalLS(**kwargs)
         elif self.method == "generalLSselection":
             self.estimate_generalLS_modelSelection(**kwargs)
         else:

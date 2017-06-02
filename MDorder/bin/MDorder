@@ -4,20 +4,205 @@
 
 from __future__ import print_function, division
 
-import sys, os
+import sys, os, glob
 import argparse
 import MDorder as mdo
 import matplotlib.pyplot as plt 
 
+# ============================================================================ #
+
+def parse_options():
+    parser = argparse.ArgumentParser(description='Compute amide bond S2 order parameters from MD trajectories.',
+            epilog=('Depending on the method used, different additional arguments are recognized.\n'
+                'You can get method specific help with \'{} <method> -h\'').format(sys.argv[0].split('/')[-1]))
+
+    subparsers = parser.add_subparsers(title='method', description='Method to use for order parameter or correlation function computation.',
+            metavar='<method>', dest='method')
+
+    # corr parser
+    help_corr = ('Compute correlation functions from MD trajectories.'
+            'This should always be done first, as the S2 order parameters are computed from the correlation functions.'
+            'The S2 computation methods \'direct\' and \'mean\' require fitted trajectories.'
+            'The LS methods give global rotational correlation times if applied to unfitted trajectories.')
+    parser_corr = subparsers.add_parser('corr', description=help_corr, help=help_corr)
+
+    parser_corr.add_argument('-t', '--top',      metavar="topology", required=True, help='Topology filename (pdb, gro, etc.). Any fileformat that MDTraj can read.') 
+    parser_corr.add_argument('-j', '--trj',      metavar="trajectorylist", required=True, nargs='+', help='If specified, fit trajectory on first frame based on the specified set of atoms. Must be a valid MDTraj selection string.') 
+    parser_corr.add_argument('-c', '--corrpath', metavar="corrpath", default="./MDorder_corr", help='Directory name to store correlation functions in zip files.') 
+    parser_corr.add_argument('-l', '--length',   metavar="subtrajectory length", required=True, type=int, help='Subtrajectory length in picoseconds.') 
+    parser_corr.add_argument('-f', '--fitgroup', metavar="fitgroup", default=None, help='If specified, fit trajectory on first frame based on the specified set of atoms. Must be a valid MDTraj selection string.') 
+    parser_corr.add_argument('-a', '--atom1sel', metavar="atom1sel", default=None, help='MDTraj selection string for the first atom in the bond vectors. Defaults to backbone N atoms.') 
+    parser_corr.add_argument('-b', '--atom2sel', metavar="atom2sel", default=None, help='MDTraj selection string for the second atom in the bond vectors. Defaults to backbone H atoms.') 
+
+
+    def add_common_method_arguments(parser):
+        """
+        Add arguments common to all parsers for S2 estimation methods
+        """
+        parser.add_argument('-c', '--corrpath', metavar="corrpath", required=True, help='Directory containing correlation functions.') 
+        parser.add_argument('-o', '--outfile',  metavar="outfile",  default="S2.dat", help='S2 output filename') 
+
+    def add_common_LS_arguments(parser):
+        """
+        Add arguments common to LS parsers for S2 estimation methods
+        """
+        parser.add_argument('-f', '--fast',     metavar="fast", type=bool, default=True, help=
+                'Exclude the first correlation function datapoint at t=0 to account for motions faster than the time step length of the trajectories. Default: True') 
+        parser.add_argument('-i', '--internal', metavar="internal", type=bool, default=False, help=
+                'Interpret correlation functions as internal corr. functions, i.e., from trajectory that has been fittet to a reference frame to remove global rotations. Default: False')  
+        parser.add_argument('-w', '--weighted', metavar="weighted", type=bool, default=True, help=
+                'Perform a weighted fit of the correlation functions, i.e., the loss function is computed as the sum of the residuals of the fit to the average correlation function (over subtrajectories), weighted by the standard deviation (over subtrajectories). Default: True')   
+
+    # direct parser
+    help_direct = ('Compute S2 order parameters from correlation functions with the direct method described in '
+            'Trbovic et al. Proteins (2008). doi:10.1002/prot.21750')
+    parser_direct = subparsers.add_parser('direct', description=help_direct, help=help_direct)
+    add_common_method_arguments(parser_direct)
+
+    # mean parser
+    help_mean   = 'Compute S2 order parameters as the internal correlation function convergence value (mean of the final quarter).'
+    parser_mean = subparsers.add_parser('mean', description=help_mean, help=help_mean)
+    add_common_method_arguments(parser_mean)
+    parser_mean.add_argument('--converged', metavar="converged", type=bool, default=False, help='When averaging S2 values for a residue over subtrajectories, only consider subtrajectories for which the correlation function is converged.') 
+    parser_mean.add_argument('-d', '--diffThreshold', metavar="diffThreshold", type=float, default=0.02, help='Convergence criterion: A correlation function is converged, if the difference in the mean values over the third and fourth quarters of the correlation function differ by less than diffThreshold.') 
+    parser_mean.add_argument('-s', '--stdThreshold', metavar="stdThreshold", type=float, default=0.02, help='Convergence criterion: A correlation function is converged, if the average standard deviation of the third and fourth quarters of the correlation function is less than diffThreshold. Both convergence criteria need to be fullfilled.') 
+
+    # LS parser
+    help_LS   = 'Lipari-Szabo: compute S2 order parameters with a multi-exponential fit of the global correlation functions with a fixed number of exponential decays. JPCB 2008, 112, 6155-6158, pubs.acs.org/doi/abs/10.1021/jp077018h'
+    parser_LS = subparsers.add_parser('LS', description=help_LS, help=help_LS)
+    add_common_method_arguments(parser_LS)
+    add_common_LS_arguments(parser_LS)
+    parser_LS.add_argument('-n', '--nexp', metavar="nexp", type=int, required=True, help=
+            'Number of exponentials to fit to the correlation functions.')    
+
+    # LSsel parser
+    help_LSsel   = ('Lipari-Szabo with model selection: Compute S2 order parameters with a multi-exponential fit of the global correlation functions with a variable number of exponential decays.'
+            'The optimal number of exponentials is determined with the Akaike Information Criterion.')
+    parser_LSsel = subparsers.add_parser('LSsel', description=help_LSsel, help=help_LSsel)
+    add_common_method_arguments(parser_LSsel)
+    add_common_LS_arguments(parser_LSsel)
+    parser_LSsel.add_argument('-m', '--maxdecays', metavar="maxdecays", type=int, default=3, help=
+            'Maximum number of exponentials to fit to the correlation functions. Default: 3')   
+    parser_LSsel.add_argument('-n', '--nfits', metavar="nfits", type=int, default=10, help=
+            'The number of times each average correlation function should be fitted. For each fit, the correlation functions are averaged in random order. For cases in which two different numbers of exponentials perform almost equally well, the rounding errors during averaging can influence the result. Hence, multiple fits give a better estimate for the best model, but take more time. Default: 10')    
+
+    args = parser.parse_args()
+    return args
+
+# ============================================================================ #
+
+def write_S2(method, op, outfilename):
+    """
+    Write order parameters and associated data (e.g., correlation times) to a file.
+    """
+
+    # ask user for permission to overwrite existing output file
+    if os.path.isfile(outfilename):
+        dialog = "File exists: \'{}\', overwrite (y/n): ".format(outfilename)
+        answer = get_input(dialog) 
+        while answer not in ['y', 'n']:
+            answer = get_input(dialog) 
+        if answer == 'y':
+            os.remove(outfilename)
+        else:
+            print("Aborting...")
+            sys.exit(1)
+
+    # get residue information
+    avgcorr    = op.avgcorr   # correlation function object with averaged correlation functions over all subtrajectories
+    corr       = avgcorr.corr # numerical correlation functions, array of shape = (nresidues, timeframes)
+    corrlist   = op.corrlist  # list of correlation functions per subtrajectory
+
+    resids     = op.avgcorr.resid[0]    # residue ID of the first residue of the bond vector
+    residx     = op.avgcorr.resid[0]    # residue index (0-based)
+    resnames   = op.avgcorr.resname[0]  # residue name
+    atomnames1 = op.avgcorr.atomname[0] # atom name
+    atomnames2 = op.avgcorr.atomname[1] # atom name
+ 
+
+    if method in ["direct", "mean"]:
+        S2         = op.S2mean
+        S2_std     = op.S2std
+        S2_err     = op.S2error # = S2.std / <number subtrajectories>
+
+        with open(outfilename, 'w') as outfile:
+            outfile.write("#resid, resname, atom1, atom2, S2, std. dev., std. err.\n")
+            for i in range(len(S2)):
+                outfile.write("{:4d}, {:3s}, {:3s}, {:3s}, {:6.4f}, {:.4e}, {:.4e}\n".format(resids[i], resnames[i], atomnames1[i], atomnames2[i], S2[i], S2_std[i], S2_err[i]))
+
+
+    elif method in ["LS", "LSsel"]:
+        S2_all     = op.S2        # array containing order parameters for each exponential decay process. shape = (nresidues, maxdecays)
+        S2_all_std = op.S2std     # std. dev. corresponding to each op.S2 value (same shape)
+        S2         = op.S2.max(1) # the max is the traditional S2 order parameter
+        S2_std     = op.S2std[range(op.S2.shape[0]),op.S2.argmax(1)] # std. dev. corresponding to S2
+        tau_all    = op.tau       # contains all decay time constants corresponding to the order parameters
+        tau        = op.tau[range(op.S2.shape[0]),op.S2.argmax(1)] # decay time constants corresponding to S2
+        tau_std    = op.tau[range(op.S2.shape[0]),op.S2.argmax(1)] # std. dev. of decay time constants corresponding to S2
+
+        with open(outfilename, 'w') as outfile:
+            outfile.write("#resid, resname, atom1, atom2, S2, std. dev., std. err.\n")
+            for i in range(len(S2)):
+                outfile.write("{:4d}, {:3s}, {:3s}, {:3s}, {:6.4f}, {:.4e}\n".format(resids[i], resnames[i], atomnames1[i], atomnames2[i], S2[i], S2_std[i]))
+ 
+
+ 
+
+
+
+ 
+    print("S2 order parameters written to {}".format(outfilename))
+
+# ============================================================================ #
+
+def compute_correlation_functions(args):
+    if args.atom1sel is None or args.atom2sel is None:
+        bondvec = None
+    else:
+        bondvec = [args.atom1sel, args.atom2sel]
+
+    mdo.bondvec_corr_batch(args.top, args.trj, savepath=args.corrpath, subtrjlength=args.length, bondvec=bondvec, fitgroup=args.fitgroup)
+
+# ============================================================================ #
+
+def estimate_S2(args):
+
+    # load correlation functions
+    corrFilenames = glob.glob(args.corrpath + '/*.zip')
+    op = mdo.OrderParameter(corrfilenames=corrFilenames)
+
+    # predict order parameters
+    if args.method == "direct":
+        op.estimate("direct")
+
+    elif args.method == "mean":
+        op.estimate("mean", converged=args.converged, diffThreshold=args.diffThreshold, stdThreshold=args.stdThreshold)
+
+    elif args.method == "LS":
+        op.estimate("LS", n=args.nexp, fast=args.fast, internal=args.internal, weighted=args.weighted)
+
+    elif args.method == "LSsel":
+        op.estimate("generalLSselection", fast=args.fast, internal=args.internal, weighted=args.weighted, maxdecays=args.maxdecays, nfits=args.nfits)
+
+    write_S2(args.method, op, args.outfile)
+
+# ============================================================================ #
 
 def main():
-    parser = argparse.ArgumentParser(description='Compute Amide bond S2 order parameters from MD trajectories.')
-    parser.add_argument('integers', metavar='N', type=int, nargs='+',
-                        help='an integer for the accumulator')
-    args = parser.parse_args()
-    print(args.accumulate(args.integers))
+    args = parse_options()
 
+    if args.method == 'corr':
+        compute_correlation_functions(args)
+    else:
+        estimate_S2(args)
+
+# ============================================================================ #
 
 if __name__ == "__main__":
+    if sys.version_info[:2] <= (2, 7):
+        get_input = raw_input
+    else:
+        get_input = input
+
     main()
  
