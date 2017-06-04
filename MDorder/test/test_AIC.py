@@ -31,11 +31,11 @@ op.estimate("generalLSselection", maxdecays=3, weighted=True, nfits=10)
 # extract information
 S2_all     = op.S2        # array containing order parameters for each exponential decay process. shape = (nresidues, maxdecays)
 S2_all_std = op.S2std     # std. dev. corresponding to each op.S2 value (same shape)
-S2         = op.S2.max(1) # the max is the traditional S2 order parameter
-S2_std     = op.S2std[range(op.S2.shape[0]),op.S2.argmax(1)] # std. dev. corresponding to S2
+S2         = op.S2.min(1) # the min is the traditional S2 order parameter
+S2_std     = op.S2std[range(op.S2.shape[0]),op.S2.argmin(1)] # std. dev. corresponding to S2
 tau_all    = op.tau       # contains all decay time constants corresponding to the order parameters
-tau        = op.tau[range(op.S2.shape[0]),op.S2.argmax(1)] # decay time constants corresponding to S2
-tau_std    = op.tau[range(op.S2.shape[0]),op.S2.argmax(1)] # std. dev. of decay time constants corresponding to S2
+tau        = op.tau[range(op.S2.shape[0]),op.S2.argmin(1)] # decay time constants corresponding to S2
+tau_std    = op.tau[range(op.S2.shape[0]),op.S2.argmin(1)] # std. dev. of decay time constants corresponding to S2
 
 avgcorr    = op.avgcorr   # correlation function object with averaged correlation functions over all subtrajectories
 corr       = avgcorr.corr # numerical correlation functions, array of shape = (nresidues, timeframes)
