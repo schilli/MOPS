@@ -31,8 +31,9 @@ This method is recommended, as it leaves the system environment and Python untou
 `git clone https://github.com/schilli/MDorder.git`  
 `cd MDorder`  
 `python setup.py intall` 
-3. To update to a newer version go to the MDorder directory cloned with git and:  
+3. To update to a newer version go to the MDorder directory cloned with git and pull the changes:  
 `git pull`  
+4. Install again:
 `python setup.py install`
  
 
