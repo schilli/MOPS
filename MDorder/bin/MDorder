@@ -134,11 +134,10 @@ def write_S2(method, op, outfilename, overwrite=False):
 
 
     elif method in ["LS", "LSsel"]:
-        S2_all     = op.S2        # array containing order parameters for each exponential decay process. shape = (nresidues, maxdecays)
-        S2         = op.S2.min(1) # the min is the traditional S2 order parameter
-        tau_all    = op.tau       # contains all decay time constants corresponding to the order parameters
-        tau        = op.tau[range(op.S2.shape[0]),op.S2.argmin(1)] # decay time constants corresponding to S2
-        tau_std    = op.tau[range(op.S2.shape[0]),op.S2.argmin(1)] # std. dev. of decay time constants corresponding to S2
+        S2_all     = op.S2       # array containing order parameters for each exponential decay process. shape = (nresidues, maxdecays)
+        S2         = op.S2[:,0]  # the min is the traditional S2 order parameter
+        tau_all    = op.tau      # contains all decay time constants corresponding to the order parameters
+        tau        = op.tau[:,0] # decay time constants corresponding to S2
 
         with open(outfilename, 'w') as outfile:
             outfile.write("# resid, resname, atom1, atom2, ndecays")

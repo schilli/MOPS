@@ -13,6 +13,8 @@ The computation is done in two steps:
 Refer to the dosctrings of the individual modules, classes and functions for details.
 """
 
+__version__ = "$1.0$"
+
 try:
     # python 3 ?
     from MDorder.MDorder import save_corr, load_corr, bondvec_corr, bondvec_corr_batch
