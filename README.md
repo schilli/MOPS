@@ -20,7 +20,7 @@ This method is recommended, as it leaves the system environment and Python untou
 `python setup.py intall`
 5. To update to a newer version go to the MDorder directory cloned with git and pull the changes:  
 `git pull`  
-6. Install again:
+6. Install again:  
 `python setup.py install`
 
 ## Install with system python
@@ -33,7 +33,7 @@ This method is recommended, as it leaves the system environment and Python untou
 `python setup.py intall` 
 3. To update to a newer version go to the MDorder directory cloned with git and pull the changes:  
 `git pull`  
-4. Install again:
+4. Install again:  
 `python setup.py install`
  
 
