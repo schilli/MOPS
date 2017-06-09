@@ -13,7 +13,6 @@ Compute amide bond *S*<sup>2</sup> order parameters from MD trajectories.
 
 > Ein Leben ohne Mops ist möglich, aber sinnlos. &mdash; *Loriot*  
 
-or 
 > A live without tug is possible, yet meaningless. &mdash; *Loriot*  
 
 A publication describing the methods used in this program in detail is under way.
