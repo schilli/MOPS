@@ -9,7 +9,7 @@ Version: 1.0
 
 <!-- MOP*S*<sup>2</sup> &mdash; Molecular Order Parameters *S*<sup>2</sup> -->
 
-Compute amide bond *S*<sup>2</sup> order parameters from MD trajectories.
+Compute bond vector *S*<sup>2</sup> order parameters from MD trajectories.
 
 > Ein Leben ohne Mops ist möglich, aber sinnlos. &mdash; *Loriot*  
 
