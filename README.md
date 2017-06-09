@@ -17,6 +17,15 @@ Compute bond vector *S*<sup>2</sup> order parameters from MD trajectories.
 
 A publication describing the methods used in this program in detail is under way.
 
+## Author
+Oliver Schillinger
+
+Contact via:  
+Prof. Birgit Strodel  
+Computational Chemistry Group  
+Institute of Complex Systems 6 &mdash; Structural Biochemistry  
+Forschungszentrum Jülich, Germany  
+
 
 # How to Install
 MOP*S*<sup>2</sup> is compatible with python 2 and 3 and runs on Linux, maybe on MacOS as well (untested).  
