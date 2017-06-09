@@ -1,6 +1,7 @@
 <!-- Logo from https://pixabay.com/p-827711 ; License: CC0 Public Domain, Free for commercial use, No attribution required -->
 
-<!-- <p align="center"><img width=60% src="https://github.com/schilli/MOPS/mops.svg"></p> -->
+<!-- <p align="center"><img width=60% src="https://github.com/schilli/MOPS/blob/master/mops.svg"></p> -->
+<p align="center"><img width=60% src="https://github.com/schilli/MOPS/blob/master/mops.svg"></p>
 <!--
 <a href="https://aimeos.org/">
     <img src="https://aimeos.org/fileadmin/template/icons/logo.png" alt="Aimeos logo" title="Aimeos" align="right" height="60" />
@@ -83,12 +84,12 @@ In[1]: import MOPS as mops
 In[2]: mops.OrderParameter?
 ```
 
-The testing / API documentation scritps available are:
-* `test_corr_fit.py`: Computes the internal correlation functions with prior removal of the global rotation of the protein by superposition of backbone atoms.
-* `test_corr_nofit.py`: Computes the correlation functions without removal of the global rotation of the protein.
-* `test_AIC.py`: Computes order parameters with the general Lipari-Szabo model and selects the best model (i.e., number of exponentials fitted) based on the Aikaike Information Criterion (AIC).
-* `test_direct.py` : Computes order parameters with the direct method described in Trbovic et al. Proteins (2008). doi:10.1002/prot.21750
-* `test_mean.py` : Computes order parameters as the mean of the internal bond vector correlation function convergence value
+The API documentation scritps available are:
+* `demo_corr_fit.py`: Computes the internal correlation functions with prior removal of the global rotation of the protein by superposition of backbone atoms.
+* `demo_corr_nofit.py`: Computes the correlation functions without removal of the global rotation of the protein.
+* `demo_AIC.py`: Computes order parameters with the general Lipari-Szabo model and selects the best model (i.e., number of exponentials fitted) based on the Aikaike Information Criterion (AIC).
+* `demo_direct.py` : Computes order parameters with the direct method described in Trbovic et al. Proteins (2008). doi:10.1002/prot.21750
+* `demo_mean.py` : Computes order parameters as the mean of the internal bond vector correlation function convergence value
 
 
 
