@@ -7,11 +7,11 @@
 
 Version: 1.0
 
-MOP*S*<sup>2</sup> &mdash Molecular Order Parameters *S*<sup>2</sup>
+MOP*S*<sup>2</sup> &mdash; Molecular Order Parameters *S*<sup>2</sup>
 
-> Ein Leben ohne Mops ist möglich, aber sinnlos. &mdash *Loriot*
+> Ein Leben ohne Mops ist möglich, aber sinnlos. &mdash; *Loriot*  
 or 
-> A live without tug is possible, yet meaningless. &mdash *Loriot*
+> A live without tug is possible, yet meaningless. &mdash; *Loriot*  
 
 Compute amide bond *S*<sup>2</sup> order parameters from MD trajectories.
 
