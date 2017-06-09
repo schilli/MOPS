@@ -93,7 +93,7 @@ The API documentation scritps available are:
 Oliver Schillinger
 
 ## Contact via
-Prof. Birgit Strodel  
+Prof. Dr. Birgit Strodel  
 [Computational Chemistry Group](http://www.strodel.info/ "strodel.info")  
 [Institute of Complex Systems 6 &mdash; Structural Biochemistry](http://www.fz-juelich.de/ics/ics-6/EN "ICS-6 Webpage")  
 [Forschungszentrum Jülich](http://www.fz-juelich.de/portal/EN "FZJ Webpage"), Germany  
