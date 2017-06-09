@@ -1,23 +1,17 @@
 <!-- Logo from https://pixabay.com/p-827711 ; License: CC0 Public Domain, Free for commercial use, No attribution required -->
-
-<!-- <p align="center"><img width=60% src="https://github.com/schilli/MOPS/blob/master/mops_small.png"></p> -->
-<!--
-<a href="https://github.com/schilli/MOPS">
-    <img src="https://github.com/schilli/MOPS/blob/master/mops_small.png" alt="MOPS logo" title="MOPS" align="right" height="60" />
-</a>
--->
 <a href="https://github.com/schilli/MOPS">
     <img src="https://github.com/schilli/MOPS/blob/master/mops_small.png" alt="MOPS logo" title="MOPS" align="right" width=40% />
 </a> 
 
 # MOP*S*<sup>2</sup>
 
-<!--[logo]: ./mops.svg "Mops"-->
-
-
 Version: 1.0
 
-MOP*S*<sup>2</sup> -- Molecular Order Parameters *S*<sup>2</sup>
+MOP*S*<sup>2</sup> &mdash Molecular Order Parameters *S*<sup>2</sup>
+
+> Ein Leben ohne Mops ist möglich, aber sinnlos. &mdash *Loriot*
+or 
+> A live without tug is possible, yet meaningless. &mdash *Loriot*
 
 Compute amide bond *S*<sup>2</sup> order parameters from MD trajectories.
 
