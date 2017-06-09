@@ -1,6 +1,7 @@
 <!-- Logo from https://pixabay.com/p-827711 ; License: CC0 Public Domain, Free for commercial use, No attribution required -->
 
 <!-- <p align="center"><img width=60% src="https://github.com/anfederico/Clairvoyant/blob/master/media/Clairvoyant.png"></p> -->
+<p align="center"><img width=60% src="https://github.com/anfederico/Clairvoyant/blob/master/media/Clairvoyant.png"></p>
 <!--
 <a href="https://aimeos.org/">
     <img src="https://aimeos.org/fileadmin/template/icons/logo.png" alt="Aimeos logo" title="Aimeos" align="right" height="60" />
@@ -9,7 +10,7 @@
 
 # MOP*S*<sup>2</sup>
 
-[logo]: ./mops.svg "Mops"
+<!--[logo]: ./mops.svg "Mops"-->
 
 
 Version: 1.0
