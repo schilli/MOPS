@@ -1,21 +1,23 @@
+# MOP*S*<sup>2</sup> &mdash; Molecular Order Parameters *S*<sup>2</sup>
+
 <!-- Logo from https://pixabay.com/p-827711 ; License: CC0 Public Domain, Free for commercial use, No attribution required -->
 <a href="https://github.com/schilli/MOPS">
     <img src="https://github.com/schilli/MOPS/blob/master/mops_small.png" alt="MOPS logo" title="MOPS" align="right" width=40% />
 </a> 
-
-# MOP*S*<sup>2</sup> &mdash; Molecular Order Parameters *S*<sup>2</sup>
-
+ 
 Version: 1.0
 
-MOP*S*<sup>2</sup> &mdash; Molecular Order Parameters *S*<sup>2</sup>
-
-> Ein Leben ohne Mops ist möglich, aber sinnlos. &mdash; *Loriot*  
-or 
-> A live without tug is possible, yet meaningless. &mdash; *Loriot*  
+<!-- MOP*S*<sup>2</sup> &mdash; Molecular Order Parameters *S*<sup>2</sup> -->
 
 Compute amide bond *S*<sup>2</sup> order parameters from MD trajectories.
 
+> Ein Leben ohne Mops ist möglich, aber sinnlos. &mdash; *Loriot*  
+
+or 
+> A live without tug is possible, yet meaningless. &mdash; *Loriot*  
+
 A publication describing the methods used in this program in detail is under way.
+
 
 # How to Install
 MOP*S*<sup>2</sup> is compatible with python 2 and 3 and runs on Linux, maybe on MacOS as well (untested).  
