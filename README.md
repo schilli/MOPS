@@ -7,7 +7,7 @@
 </a>
 -->
 <a href="https://github.com/schilli/MOPS">
-    <img src="https://github.com/schilli/MOPS/blob/master/mops_small.png" alt="MOPS logo" title="MOPS" align="right" width=20% />
+    <img src="https://github.com/schilli/MOPS/blob/master/mops_small.png" alt="MOPS logo" title="MOPS" align="right" width=40% />
 </a> 
 
 # MOP*S*<sup>2</sup>
