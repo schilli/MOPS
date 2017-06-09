@@ -1,17 +1,18 @@
 <!-- Logo from https://pixabay.com/p-827711 ; License: CC0 Public Domain, Free for commercial use, No attribution required -->
 
-<!-- <p align="center"><img width=60% src="https://github.com/schilli/MOPS/blob/master/mops.svg"></p> -->
-<p align="center"><img width=60% src="https://github.com/schilli/MOPS/blob/master/mops_small.png"></p>
+<!-- <p align="center"><img width=60% src="https://github.com/schilli/MOPS/blob/master/mops_small.png"></p> -->
 <!--
-<a href="https://aimeos.org/">
-    <img src="https://aimeos.org/fileadmin/template/icons/logo.png" alt="Aimeos logo" title="Aimeos" align="right" height="60" />
+<a href="https://github.com/schilli/MOPS">
+    <img src="https://github.com/schilli/MOPS/blob/master/mops_small.png" alt="MOPS logo" title="MOPS" align="right" height="60" />
 </a>
 -->
+<a href="https://github.com/schilli/MOPS">
+    <img src="https://github.com/schilli/MOPS/blob/master/mops_small.png" alt="MOPS logo" title="MOPS" align="right" height="60" />
+</a> 
 
 # MOP*S*<sup>2</sup>
 
 <!--[logo]: ./mops.svg "Mops"-->
-[logo]: ./mops_small.png "Mops"
 
 
 Version: 1.0
