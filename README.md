@@ -21,7 +21,7 @@ A publication describing the methods used in this program in detail is under way
 # How to Install
 MOP*S*<sup>2</sup> is compatible with python 2 and 3 and runs on Linux, maybe on MacOS as well (untested).  
 
-## Install with Anaconda (recommended)
+## Install with Anaconda (Recommended)
 This method is recommended, as it leaves the system environment and Python untouched.
 
 1. Download and install the [Anaconda python distribution](https://www.continuum.io/downloads "Continuum Analytics Anaconda download")
@@ -38,7 +38,7 @@ This method is recommended, as it leaves the system environment and Python untou
 6. Install again:  
 `python setup.py install`
 
-## Install with system python
+## Install with System Python
 1. Install git and Ipython with your systems package manager
 2. Install mdtraj and matplotlib with pip:  
 `pip install mdtraj matplotlib`
@@ -68,7 +68,7 @@ It might work with solvent, but the trajectory will much load slower.
 
 The module automatically installs an executable `MOPS` in the users `$PATH` that will print detailed usage instructions when called with the `-h` flag.
 
-## From a python script
+## From a Python Script
 After installation, there will be several files for testing and documentation of the API in your `$PATH`.
 These can also be found in the `MOPS/demo` subdirectory.
 The `which` command will help you to locate them.
