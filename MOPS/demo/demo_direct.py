@@ -6,12 +6,12 @@
 from __future__ import print_function, division
 
 import sys, os, glob
-import MDorder as mdo
+import MOPS as mops
 import matplotlib.pyplot as plt
  
 # the correlation functions are stored in a subfolder of the current working directory
 # after running test_corr.py
-corrpath = "./MDorder_test_corr_fit"
+corrpath = "./MOPS_test_corr_fit"
 
 if not os.path.isdir(corrpath):
     print("No correlation functions found.")
@@ -20,7 +20,7 @@ if not os.path.isdir(corrpath):
 
 # load correlation functions
 corrFilenames = glob.glob(corrpath + '/*.zip')
-op = mdo.OrderParameter(corrfilenames=corrFilenames)
+op = mops.OrderParameter(corrfilenames=corrFilenames)
 
 # predict order parameters
 op.estimate("direct")

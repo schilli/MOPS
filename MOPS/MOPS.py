@@ -21,7 +21,7 @@ except ImportError:
 
 try:
     # python 3 ? 
-    from MDorder.CorrFunction import CorrFunction
+    from MOPS.CorrFunction import CorrFunction
 except ImportError:
     # python 2 ? 
     from CorrFunction import CorrFunction

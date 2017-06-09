@@ -5,13 +5,13 @@
 from __future__ import print_function, division
 
 import os
-import MDorder as mdo
+import MOPS as mops
 
-# path to the pdb file and trajectory shipped with MDorder
-testpath = '/'.join(mdo.__file__.split('/')[:-1]) + '/test/'
+# path to the pdb file and trajectory shipped with MOPS
+testpath = '/'.join(mops.__file__.split('/')[:-1]) + '/test/'
 
 # the correlation functions are stored in a subfolder of the current working directory
-savepath = "./MDorder_test_corr_fit"
+savepath = "./MOPS_test_corr_fit"
 if not os.path.isdir(savepath):
     os.mkdir(savepath)
 
@@ -25,4 +25,4 @@ Nsel = "name N and not resname PRO and resid >= 1"
 Hsel = "name H and not resname PRO and resid >= 1"
 
 # compute bond order correlation functions for a subrajectory length of 10000 ps = 10 ns
-mdo.bondvec_corr_batch(topfilename, trjfilenames, savepath, subtrjlength=10000, bondvec=[Nsel, Hsel], fitgroup="backbone")
+mops.bondvec_corr_batch(topfilename, trjfilenames, savepath, subtrjlength=10000, bondvec=[Nsel, Hsel], fitgroup="backbone")

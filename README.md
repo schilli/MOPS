@@ -1,4 +1,4 @@
-# MDorder
+# MOPS
 
 Version: 1.0
 
@@ -7,21 +7,21 @@ Compute amide bond S2 order parameters from MD trajectories.
 A publication describing the methods used in this program in detail is under way.
 
 # How to Install
-MDorder is compatible with python 2 and 3 and runs on Linux, maybe on MacOS as well (untested).  
+MOPS is compatible with python 2 and 3 and runs on Linux, maybe on MacOS as well (untested).  
 
 ## Install with Anaconda (recommended)
 This method is recommended, as it leaves the system environment and Python untouched.
 
 1. Download and install the [Anaconda python distribution](https://www.continuum.io/downloads "Continuum Analytics Anaconda download")
 2. Create a new environment with the [MDTraj package](https://github.com/mdtraj/mdtraj "MDTraj") installed:  
-`conda create --name MDorder mdtraj matplotlib ipython`
+`conda create --name MOPS mdtraj matplotlib ipython`
 3. Activate environment:  
-`source activate MDorder`
-4. Download and install MDorder:  
-`git clone https://github.com/schilli/MDorder.git`  
-`cd MDorder`  
+`source activate MOPS`
+4. Download and install MOPS:  
+`git clone https://github.com/schilli/MOPS.git`  
+`cd MOPS`  
 `python setup.py intall`
-5. To update to a newer version go to the MDorder directory cloned with git and pull the changes:  
+5. To update to a newer version go to the MOPS directory cloned with git and pull the changes:  
 `git pull`  
 6. Install again:  
 `python setup.py install`
@@ -30,11 +30,11 @@ This method is recommended, as it leaves the system environment and Python untou
 1. Install git and Ipython with your systems package manager
 2. Install mdtraj and matplotlib with pip:  
 `pip install mdtraj matplotlib`
-2. Download and install MDorder:  
-`git clone https://github.com/schilli/MDorder.git`  
-`cd MDorder`  
+2. Download and install MOPS:  
+`git clone https://github.com/schilli/MOPS.git`  
+`cd MOPS`  
 `python setup.py intall` 
-3. To update to a newer version go to the MDorder directory cloned with git and pull the changes:  
+3. To update to a newer version go to the MOPS directory cloned with git and pull the changes:  
 `git pull`  
 4. Install again:  
 `python setup.py install`
@@ -54,18 +54,18 @@ It might work with solvent, but the trajectory will much load slower.
 
 ## Standalone Executable
 
-The module automatically installs an executable `MDorder` in the users `$PATH` that will print detailed usage instructions when called with the `-h` flag.
+The module automatically installs an executable `MOPS` in the users `$PATH` that will print detailed usage instructions when called with the `-h` flag.
 
 ## From a python script
 After installation, there will be several files for testing and documentation of the API in your `$PATH`.
-These can also be found in the `MDorder/test` subdirectory.
+These can also be found in the `MOPS/test` subdirectory.
 The `which` command will help you to locate them.
-They are well documented and demonstrate how to use the API of MDorder from the command line and in your own Python scripts.
+They are well documented and demonstrate how to use the API of MOPS from the command line and in your own Python scripts.
 In addition, each function and class comes with a docstring describing its usage and the meaning of arguments and return values.
-It is a good idea to import the MDorder module in an interactive Ipython session and to read the docstrings with the `?` operator, e.g.:  
+It is a good idea to import the MOPS module in an interactive Ipython session and to read the docstrings with the `?` operator, e.g.:  
 ```python
-In[1]: import MDorder as mdo
-In[2]: mdo.OrderParameter?
+In[1]: import MOPS as mops
+In[2]: mops.OrderParameter?
 ```
 
 The testing / API documentation scritps available are:

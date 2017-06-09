@@ -5,18 +5,18 @@ from __future__ import print_function, division
 import sys, os, time, copy
 import numpy as np
 import matplotlib.pyplot as plt
-import MDorder as mdo
+import MOPS as mops
 
 try:
     # python 3 ? 
-    import MDorder.LS as LS
+    import MOPS.LS as LS
 except ImportError:
     # python 2 ? 
     import LS as LS
 
 try:
     # python 3 ? 
-    from MDorder.CorrFunction import CorrFunction
+    from MOPS.CorrFunction import CorrFunction
 except ImportError:
     # python 2 ? 
     from CorrFunction import CorrFunction
@@ -100,7 +100,7 @@ class OrderParameter(object):
         self.corrlist = []
         print("Loading {} set{} of correlation functions:".format(len(self.corrfilenames), *['s' if i>1 else '' for i in [len(self.corrfilenames)]]))
         for nf, filename in enumerate(self.corrfilenames):
-            corr, corrstd, corrstdmean, info = mdo.load_corr(filename)
+            corr, corrstd, corrstdmean, info = mops.load_corr(filename)
             self.corrlist.append(CorrFunction(corr, corrstd, corrstdmean, info))
             if self.verbose:
                 print("\rProgress: {:3.0f}%".format(100.0*nf/len(self.corrfilenames)), end="")

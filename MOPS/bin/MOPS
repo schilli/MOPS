@@ -6,7 +6,7 @@ from __future__ import print_function, division
 
 import sys, os, glob
 import argparse
-import MDorder as mdo
+import MOPS as mops
 import matplotlib.pyplot as plt 
 
 # ============================================================================ #
@@ -28,7 +28,7 @@ def parse_options():
 
     parser_corr.add_argument('-t', '--top',      metavar="topology", required=True, help='Topology filename (pdb, gro, etc.). Any fileformat that MDTraj can read.') 
     parser_corr.add_argument('-j', '--trj',      metavar="trajectorylist", required=True, nargs='+', help='If specified, fit trajectory on first frame based on the specified set of atoms. Must be a valid MDTraj selection string.') 
-    parser_corr.add_argument('-c', '--corrpath', metavar="corrpath", default="./MDorder_corr", help='Directory name to store correlation functions in zip files.') 
+    parser_corr.add_argument('-c', '--corrpath', metavar="corrpath", default="./MOPS_corr", help='Directory name to store correlation functions in zip files.') 
     parser_corr.add_argument('-l', '--length',   metavar="subtrajectory length", required=True, type=int, help='Subtrajectory length in picoseconds.') 
     parser_corr.add_argument('-f', '--fitgroup', metavar="fitgroup", default=None, help='If specified, fit trajectory on first frame based on the specified set of atoms. Must be a valid MDTraj selection string.') 
     parser_corr.add_argument('-a', '--atom1sel', metavar="atom1sel", default=None, help='MDTraj selection string for the first atom in the bond vectors. Defaults to backbone N atoms.') 
@@ -175,7 +175,7 @@ def compute_correlation_functions(args):
     else:
         bondvec = [args.atom1sel, args.atom2sel]
 
-    mdo.bondvec_corr_batch(args.top, args.trj, savepath=args.corrpath, subtrjlength=args.length, bondvec=bondvec, fitgroup=args.fitgroup)
+    mops.bondvec_corr_batch(args.top, args.trj, savepath=args.corrpath, subtrjlength=args.length, bondvec=bondvec, fitgroup=args.fitgroup)
 
 # ============================================================================ #
 
@@ -183,7 +183,7 @@ def estimate_S2(args):
 
     # load correlation functions
     corrFilenames = glob.glob(args.corrpath + '/*.zip')
-    op = mdo.OrderParameter(corrfilenames=corrFilenames)
+    op = mops.OrderParameter(corrfilenames=corrFilenames)
 
     # predict order parameters
     if args.method == "direct":
