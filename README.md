@@ -94,9 +94,9 @@ Oliver Schillinger
 
 ## Contact via
 Prof. Birgit Strodel  
-Computational Chemistry Group  
-Institute of Complex Systems 6 &mdash; Structural Biochemistry  
-Forschungszentrum Jülich, Germany  
+[Computational Chemistry Group](http://www.strodel.info/ "strodel.info")  
+[Institute of Complex Systems 6 &mdash; Structural Biochemistry](http://www.fz-juelich.de/ics/ics-6/EN "ICS-6 Webpage")  
+[Forschungszentrum Jülich](www.fz-juelich.de/portal/EN "FZJ Webpage"), Germany  
  
 
 
