@@ -1,4 +1,4 @@
-# MOPS
+# MOP*S*<sup>2</sup>
 
 Version: 1.0
 
@@ -9,7 +9,7 @@ Compute amide bond *S*<sup>2</sup> order parameters from MD trajectories.
 A publication describing the methods used in this program in detail is under way.
 
 # How to Install
-MOPS is compatible with python 2 and 3 and runs on Linux, maybe on MacOS as well (untested).  
+MOP*S*<sup>2</sup> is compatible with python 2 and 3 and runs on Linux, maybe on MacOS as well (untested).  
 
 ## Install with Anaconda (recommended)
 This method is recommended, as it leaves the system environment and Python untouched.
@@ -19,11 +19,11 @@ This method is recommended, as it leaves the system environment and Python untou
 `conda create --name MOPS mdtraj matplotlib ipython`
 3. Activate environment:  
 `source activate MOPS`
-4. Download and install MOPS:  
+4. Download and install MOP*S*<sup>2</sup>:  
 `git clone https://github.com/schilli/MOPS.git`  
 `cd MOPS`  
 `python setup.py intall`
-5. To update to a newer version go to the MOPS directory cloned with git and pull the changes:  
+5. To update to a newer version go to the MOP*S*<sup>2</sup> directory cloned with git and pull the changes:  
 `git pull`  
 6. Install again:  
 `python setup.py install`
@@ -32,11 +32,11 @@ This method is recommended, as it leaves the system environment and Python untou
 1. Install git and Ipython with your systems package manager
 2. Install mdtraj and matplotlib with pip:  
 `pip install mdtraj matplotlib`
-2. Download and install MOPS:  
+2. Download and install MOP*S*<sup>2</sup>:  
 `git clone https://github.com/schilli/MOPS.git`  
 `cd MOPS`  
 `python setup.py intall` 
-3. To update to a newer version go to the MOPS directory cloned with git and pull the changes:  
+3. To update to a newer version go to the MOP*S*<sup>2</sup> directory cloned with git and pull the changes:  
 `git pull`  
 4. Install again:  
 `python setup.py install`
@@ -60,9 +60,9 @@ The module automatically installs an executable `MOPS` in the users `$PATH` that
 
 ## From a python script
 After installation, there will be several files for testing and documentation of the API in your `$PATH`.
-These can also be found in the `MOPS/test` subdirectory.
+These can also be found in the `MOPS/demo` subdirectory.
 The `which` command will help you to locate them.
-They are well documented and demonstrate how to use the API of MOPS from the command line and in your own Python scripts.
+They are well documented and demonstrate how to use the API of MOP*S*<sup>2</sup> from the command line and in your own Python scripts.
 In addition, each function and class comes with a docstring describing its usage and the meaning of arguments and return values.
 It is a good idea to import the MOPS module in an interactive Ipython session and to read the docstrings with the `?` operator, e.g.:  
 ```python
