@@ -2,7 +2,9 @@
 
 Version: 1.0
 
-Compute amide bond S2 order parameters from MD trajectories.
+MOP*S*<sup>2</sup> -- Molecular Order Parameters *S*<sup>2</sup>
+
+Compute amide bond *S*<sup>2</sup> order parameters from MD trajectories.
 
 A publication describing the methods used in this program in detail is under way.
 
