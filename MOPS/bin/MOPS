@@ -65,9 +65,9 @@ def parse_options():
     help_mean   = 'Compute S2 order parameters as the internal correlation function convergence value (mean of the final quarter).'
     parser_mean = subparsers.add_parser('mean', description=help_mean, help=help_mean)
     add_common_method_arguments(parser_mean)
-    parser_mean.add_argument('--converged', metavar="converged", type=bool, default=False, help='When averaging S2 values for a residue over subtrajectories, only consider subtrajectories for which the correlation function is converged.') 
-    parser_mean.add_argument('-d', '--diffThreshold', metavar="diffThreshold", type=float, default=0.02, help='Convergence criterion: A correlation function is converged, if the difference in the mean values over the third and fourth quarters of the correlation function differ by less than diffThreshold.') 
-    parser_mean.add_argument('-s', '--stdThreshold', metavar="stdThreshold", type=float, default=0.02, help='Convergence criterion: A correlation function is converged, if the average standard deviation of the third and fourth quarters of the correlation function is less than diffThreshold. Both convergence criteria need to be fullfilled.') 
+    parser_mean.add_argument('--converged', metavar="converged", type=bool, default=False, help='When averaging S2 values for a residue over subtrajectories, only consider subtrajectories for which the correlation function is converged. Default: False') 
+    parser_mean.add_argument('-d', '--diffThreshold', metavar="diffThreshold", type=float, default=0.02, help='Convergence criterion: A correlation function is converged, if the difference in the mean values over the third and fourth quarters of the correlation function differ by less than diffThreshold. Default value: 0.02') 
+    parser_mean.add_argument('-s', '--stdThreshold', metavar="stdThreshold", type=float, default=0.02, help='Convergence criterion: A correlation function is converged, if the average standard deviation of the third and fourth quarters of the correlation function is less than diffThreshold. Both convergence criteria need to be fullfilled. Default value: 0.02') 
 
     # LS parser
     help_LS   = 'Lipari-Szabo: compute S2 order parameters with a multi-exponential fit of the global correlation functions with a fixed number of exponential decays. JPCB 2008, 112, 6155-6158, pubs.acs.org/doi/abs/10.1021/jp077018h. S2_0 in the output file corresponds to the S2 order parameters measured in NMR.'
